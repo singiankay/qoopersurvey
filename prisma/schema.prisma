@@ -12,3 +12,57 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id    Int     @default(autoincrement()) @id
+  email String  @unique
+  password  String
+  firstname  String
+  lastname  String
+  role      Role @default(User)
+  response Response[]
+}
+
+model Form {
+  id    Int @default(autoincrement()) @id
+  title String
+  questions Question[]
+  responses Response[]
+}
+
+model Question {
+  id      Int     @default(autoincrement()) @id
+  form    Form    @relation(fields: [formId], references: [id])
+  formId  Int
+  label   String
+  type    Type
+  responseItem ResponseItem[]
+}
+
+model Response {
+  id      Int     @default(autoincrement()) @id
+  form    Form?    @relation(fields: [formId], references: [id])
+  formId Int
+  user    User?    @relation(fields: [userId], references: [id])
+  userId Int
+  items ResponseItem[]
+}
+
+model ResponseItem {
+  id    Int       @default(autoincrement()) @id
+  response  Response  @relation(fields: [responseId], references: [id])
+  responseId       Int
+  question Question @relation(fields: [questionId], references: [id])
+  questionId     Int
+  answer  String  @db.VarChar(255)
+}
+
+enum Role {
+  User
+  Admin
+}
+
+enum Type {
+  ShortText
+  Number
+}
