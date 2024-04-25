@@ -20,12 +20,15 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       RoleDecorator,
       context.getHandler(),
     );
+    const request = context.switchToHttp().getRequest();
 
     if (!roleDecorator) {
       return true;
     }
+    if (!request.headers.authorization) {
+      return false;
+    }
 
-    const request = context.switchToHttp().getRequest();
     const headers = (await this.authService.decodeHeaders(
       request.headers.authorization,
     )) as any;
