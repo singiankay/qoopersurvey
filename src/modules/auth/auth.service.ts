@@ -44,4 +44,9 @@ export class AuthService {
       access_token: jwt,
     };
   }
+
+  async decodeHeaders(bearer: string): Promise<any> {
+    const token = bearer.replace('Bearer ', '');
+    return this.jwtService.decode(token);
+  }
 }
