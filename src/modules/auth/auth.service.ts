@@ -11,7 +11,7 @@ export class AuthService {
     private userService: UserService,
   ) {}
 
-  async register(body: UserDto): Promise<any> {
+  async register(body: UserDto): Promise<UserDto> {
     const saltOrRounds = 12;
     const salt = await bcrypt.genSalt(saltOrRounds);
     const hashedPassword = await bcrypt.hash(body.password, salt);
@@ -22,7 +22,10 @@ export class AuthService {
     }
 
     const newUser = { ...body, password: hashedPassword };
-    return this.userService.create(newUser);
+    const result = await this.userService.create(newUser);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...toReturn } = result;
+    return toReturn;
   }
 
   async validateUser(body: UserDto): Promise<{ access_token: string }> {
