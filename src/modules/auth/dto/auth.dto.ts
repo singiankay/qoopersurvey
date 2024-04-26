@@ -1,3 +1,10 @@
+import { ApiProperty } from '@nestjs/swagger';
+
+export enum Role {
+  User = 'User',
+  Admin = 'Admin',
+}
+
 export class UserDto {
   constructor(data?: {
     email: string;
@@ -12,16 +19,34 @@ export class UserDto {
     this.lastname = data?.lastname;
     this.role = data?.role;
   }
-
+  @ApiProperty({
+    description: 'User ID',
+  })
   id: number;
-  email: string;
-  password: string;
-  role: Role;
-  firstname: string;
-  lastname: string;
-}
 
-export enum Role {
-  User = 'User',
-  Admin = 'Admin',
+  @ApiProperty({
+    description: 'User email',
+  })
+  email: string;
+
+  @ApiProperty({
+    description: 'User Password',
+  })
+  password: string;
+
+  @ApiProperty({
+    description: 'Role',
+    enum: Role,
+  })
+  role: Role;
+
+  @ApiProperty({
+    description: 'Firstname',
+  })
+  firstname: string;
+
+  @ApiProperty({
+    description: 'Lastname',
+  })
+  lastname: string;
 }
