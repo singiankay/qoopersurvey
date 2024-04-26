@@ -45,6 +45,13 @@ export class AuthService {
     };
   }
 
+  async getHeaders(bearer: string): Promise<UserDto> {
+    const headers = await this.decodeHeaders(bearer);
+    const { sub, ...h } = headers.payload;
+    const a = new UserDto({ ...h, id: sub });
+    return a;
+  }
+
   async decodeHeaders(bearer: string): Promise<any> {
     const token = bearer.replace('Bearer ', '');
     return this.jwtService.decode(token);
