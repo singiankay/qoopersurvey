@@ -10,7 +10,7 @@ import fastifyCookie from '@fastify/cookie';
 import 'dotenv/config';
 
 async function bootstrap() {
-  const PORT = process.env.PORT || 3000;
+  const PORT = parseInt(process.env.PORT) || 3000;
   const HOST = process.env.HOST || '0.0.0.0';
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
