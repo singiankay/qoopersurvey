@@ -10,6 +10,8 @@ import fastifyCookie from '@fastify/cookie';
 import 'dotenv/config';
 
 async function bootstrap() {
+  const PORT = process.env.PORT || 3000;
+  const HOST = process.env.HOST || '0.0.0.0';
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
@@ -27,9 +29,9 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-  const PORT = process.env.PORT || 3000;
+
   await app.listen(PORT, () => {
-    console.log(`Listening on PORT ${PORT}`);
+    console.log(`Listening on PORT ${PORT} and HOST ${HOST}`);
   });
 }
 bootstrap();
