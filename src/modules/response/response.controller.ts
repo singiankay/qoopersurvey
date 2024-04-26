@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Get,
+  HttpStatus,
   Param,
   ParseIntPipe,
   Patch,
@@ -18,6 +19,7 @@ import { Role } from '@prisma/client';
 import { FastifyRequest } from 'fastify';
 import { AuthService } from '../auth/auth.service';
 import { ResponseItemDto } from './dto/response.dto';
+import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 
 @UseGuards(JwtAuthGuard)
 @Controller('form/:formId/response')
@@ -27,6 +29,20 @@ export class ResponseController {
     private readonly authService: AuthService,
   ) {}
   @Get('all')
+  @ApiOperation({
+    summary: 'Get Responses By Id',
+    description: 'Returns Responses',
+    operationId: 'getResponses',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+  })
+  @ApiParam({
+    name: 'formId',
+    description: 'Form ID',
+    required: true,
+    type: Number,
+  })
   @RoleDecorator([Role.Admin])
   async getResponses(
     @Req() req: FastifyRequest,
