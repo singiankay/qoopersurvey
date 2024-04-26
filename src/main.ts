@@ -19,7 +19,7 @@ async function bootstrap() {
   await app.register(fastifyCookie, {
     secret: process.env.JWT_SECRET,
   });
-  app.enableCors({ origin: 'http://localhost:8080', credentials: true });
+  app.enableCors({ origin: true, credentials: true });
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   const config = new DocumentBuilder()
     .setTitle('Qooper Survey API')
