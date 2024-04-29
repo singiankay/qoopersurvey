@@ -71,10 +71,18 @@
     "typescript": "^5.1.3"
   },
   "jest": {
+    "moduleDirectories": [
+      "node_modules",
+      "<rootDir>",
+      "src"
+    ],
     "moduleFileExtensions": [
       "js",
       "json",
       "ts"
+    ],
+    "roots": [
+      "<rootDir>/src/test/"
     ],
     "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",
