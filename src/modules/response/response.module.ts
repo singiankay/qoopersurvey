@@ -1,7 +1,7 @@
 import { ResponseService } from './response.service';
 import { ResponseController } from './response.controller';
 import { JwtStrategy } from '../auth/strategies/jwt.strategy';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../../src/prisma/prisma.service';
 import { AuthService } from '../auth/auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../users/user.service';

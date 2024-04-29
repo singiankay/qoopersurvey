@@ -18,7 +18,7 @@ export class AuthService {
     const user = await this.userService.find(body);
 
     if (user) {
-      throw new BadRequestException('email already exists!.');
+      throw new BadRequestException('Email already exists!');
     }
 
     const newUser = { ...body, password: hashedPassword };
